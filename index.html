@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>A Little Surprise 🎂</title>
 
@@ -62,16 +62,21 @@
         </div>
 
 
-        <!-- PHOTO 1 -->
+        <!-- =========================
+             PHOTO 1
+        ========================== -->
 
         <div class="photo-container active" id="photo1">
 
             <div class="photo-card">
 
-                <img
-                    src="photo1.jpg"
-                    alt="Memory 1"
-                >
+                <div class="image-wrapper">
+                    <img
+                        src="photo1.jpg"
+                        alt="Memory 1"
+                        class="memory-photo"
+                    >
+                </div>
 
                 <div class="photo-caption">
                     Okay... maybe one photo first 🙃
@@ -83,16 +88,21 @@
 
 
 
-        <!-- PHOTO 2 -->
+        <!-- =========================
+             PHOTO 2
+        ========================== -->
 
         <div class="photo-container" id="photo2">
 
             <div class="photo-card">
 
-                <img
-                    src="photo2.jpg"
-                    alt="Memory 2"
-                >
+                <div class="image-wrapper">
+                    <img
+                        src="photo2.jpg"
+                        alt="Memory 2"
+                        class="memory-photo"
+                    >
+                </div>
 
                 <div class="photo-caption">
                     Fine... here's another one 🫶
@@ -104,16 +114,21 @@
 
 
 
-        <!-- PHOTO 3 -->
+        <!-- =========================
+             PHOTO 3
+        ========================== -->
 
         <div class="photo-container" id="photo3">
 
             <div class="photo-card">
 
-                <img
-                    src="photo3.jpg"
-                    alt="Memory 3"
-                >
+                <div class="image-wrapper">
+                    <img
+                        src="photo3.jpg"
+                        alt="Memory 3"
+                        class="memory-photo"
+                    >
+                </div>
 
                 <div class="photo-caption">
                     You really wanted more, didn't you? 😂
@@ -123,6 +138,9 @@
 
         </div>
 
+
+
+        <!-- NEXT BUTTON -->
 
         <button
             id="nextButton"
@@ -139,10 +157,7 @@
          FINAL BIRTHDAY SCREEN
     ========================== -->
 
-    <section
-        id="final"
-        class="screen hidden"
-    >
+    <section id="final" class="screen hidden">
 
         <div class="final-stars"></div>
 
@@ -178,7 +193,9 @@
 
 
 
-    <!-- JAVASCRIPT -->
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
     <script src="script.js"></script>
 
