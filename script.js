@@ -1,230 +1,276 @@
-// ===============================
-// CREATE STARS
-// ===============================
-
-for (let i = 0; i < 70; i++) {
-
-    const star = document.createElement("div");
-
-    star.className = "star";
-
-    star.style.left =
-        Math.random() * 100 + "%";
-
-    star.style.top =
-        Math.random() * 100 + "%";
-
-    star.style.animationDelay =
-        Math.random() * 3 + "s";
-
-    document.body.appendChild(star);
-}
+// ========================================
+// BIRTHDAY WEBSITE JAVASCRIPT
+// ========================================
 
 
-// ===============================
-// FLOATING HEARTS
-// ===============================
+// ----------------------------------------
+// VARIABLES
+// ----------------------------------------
 
-function createHeart() {
+let currentPhoto = 1;
 
-    const heart =
-        document.createElement("div");
+const totalPhotos = 3;
 
-    heart.className = "heart";
+const music =
+    document.getElementById("bgMusic");
 
-    const hearts = [
-        "💗",
-        "💕",
-        "💖",
-        "💓",
-        "🫶",
-        "✨"
-    ];
+const intro =
+    document.getElementById("intro");
 
-    heart.innerHTML =
-        hearts[
-            Math.floor(
-                Math.random() * hearts.length
-            )
-        ];
+const main =
+    document.getElementById("main");
 
-    heart.style.left =
-        Math.random() * 100 + "%";
+const finalScreen =
+    document.getElementById("final");
 
-    heart.style.fontSize =
-        (15 + Math.random() * 20) + "px";
-
-    heart.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 10000);
-}
-
-setInterval(createHeart, 700);
+const nextButton =
+    document.getElementById("nextButton");
 
 
-// ===============================
+// ----------------------------------------
 // START SURPRISE
-// ===============================
+// ----------------------------------------
 
 function startSurprise() {
 
-    document
-        .getElementById("intro")
-        .classList.add("hidden");
+    // Start background music
+    music.volume = 0.4;
+
+    music.play().catch(() => {
+        console.log("Music could not start.");
+    });
 
 
+    // Hide intro
+    intro.classList.add("hidden");
+
+
+    // Show main experience
     setTimeout(() => {
 
-        document
-            .getElementById("photoScreen")
-            .classList.remove("hidden");
+        main.classList.remove("hidden");
 
-
-        setTimeout(() => {
-
-            document
-                .getElementById("photoCard")
-                .classList.add("show");
-
-        }, 400);
+        createStars();
+        createFloatingHearts();
 
     }, 800);
 }
 
 
-// ===============================
-// PHOTOS
-// ===============================
-
-const photos = [
-
-    {
-        src: "photo1.jpg",
-
-        caption:
-            "Okay... maybe one photo first 🙃"
-    },
-
-    {
-        src: "photo2.jpg",
-
-        caption:
-            "Fine... here's another one 🫶"
-    },
-
-    {
-        src: "photo3.jpg",
-
-        caption:
-            "You really wanted more, didn't you? 😂"
-    }
-
-];
-
-
-let currentPhoto = 0;
-
-
-// ===============================
+// ----------------------------------------
 // NEXT PHOTO
-// ===============================
+// ----------------------------------------
 
 function nextPhoto() {
 
+    // Current photo
+    const current =
+        document.getElementById(
+            "photo" + currentPhoto
+        );
+
+
+    // Hide current photo
+    current.classList.remove("active");
+
+
+    // Move to next photo
     currentPhoto++;
 
 
-    // All photos finished
-    if (
-        currentPhoto >= photos.length
-    ) {
+    // If all 3 photos are finished
+    if (currentPhoto > totalPhotos) {
 
-        showFinal();
+        setTimeout(() => {
+
+            showFinalScreen();
+
+        }, 800);
 
         return;
     }
 
 
-    const card =
+    // Get next photo
+    const next =
         document.getElementById(
-            "photoCard"
+            "photo" + currentPhoto
         );
 
 
-    card.classList.remove("show");
-
-
+    // Show next photo
     setTimeout(() => {
 
-        card
-            .querySelector("img")
-            .src =
-            photos[currentPhoto].src;
-
-
-        card
-            .querySelector(".photo-caption")
-            .textContent =
-            photos[currentPhoto].caption;
-
-
-        card.classList.add("show");
+        next.classList.add("active");
 
     }, 500);
+
+
+    // Change button text
+
+    if (currentPhoto === 2) {
+
+        nextButton.textContent =
+            "One more? 👀";
+
+    }
+
+    else if (currentPhoto === 3) {
+
+        nextButton.textContent =
+            "Okay... last one 💗";
+
+    }
 }
 
 
-// ===============================
+// ----------------------------------------
 // FINAL SCREEN
-// ===============================
+// ----------------------------------------
 
-function showFinal() {
+function showFinalScreen() {
 
-    document
-        .getElementById("photoScreen")
-        .classList.add("hidden");
+    main.classList.add("hidden");
 
 
     setTimeout(() => {
 
-        document
-            .getElementById("finalScreen")
-            .classList.remove("hidden");
+        finalScreen.classList.remove("hidden");
 
 
-        setTimeout(() => {
-
-            document
-                .getElementById("message")
-                .classList.add("show");
+        // Confetti
+        createConfetti();
 
 
-            createConfetti();
+        // Extra hearts
+        createFinalHearts();
 
-        }, 700);
 
     }, 900);
 }
 
 
-// ===============================
+// ----------------------------------------
+// CREATE STARS
+// ----------------------------------------
+
+function createStars() {
+
+    const container =
+        document.querySelector(".stars");
+
+
+    if (!container) return;
+
+
+    for (let i = 0; i < 80; i++) {
+
+        const star =
+            document.createElement("span");
+
+
+        star.className = "star";
+
+
+        star.style.left =
+            Math.random() * 100 + "%";
+
+
+        star.style.top =
+            Math.random() * 100 + "%";
+
+
+        star.style.animationDelay =
+            Math.random() * 4 + "s";
+
+
+        star.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+
+        container.appendChild(star);
+    }
+}
+
+
+// ----------------------------------------
+// FLOATING HEARTS
+// ----------------------------------------
+
+function createFloatingHearts() {
+
+    setInterval(() => {
+
+        const heart =
+            document.createElement("div");
+
+
+        heart.className =
+            "floating-heart";
+
+
+        const heartTypes = [
+            "💗",
+            "💕",
+            "💖",
+            "💓",
+            "💞",
+            "✨"
+        ];
+
+
+        heart.textContent =
+            heartTypes[
+                Math.floor(
+                    Math.random() *
+                    heartTypes.length
+                )
+            ];
+
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+
+        heart.style.fontSize =
+            (14 + Math.random() * 18) + "px";
+
+
+        heart.style.animationDuration =
+            (5 + Math.random() * 5) + "s";
+
+
+        document.body.appendChild(heart);
+
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        }, 10000);
+
+    }, 800);
+}
+
+
+// ----------------------------------------
 // CONFETTI
-// ===============================
+// ----------------------------------------
 
 function createConfetti() {
 
-    for (
-        let i = 0;
-        i < 100;
-        i++
-    ) {
+    const pieces = [
+        "🎉",
+        "✨",
+        "💗",
+        "💕",
+        "🌸",
+        "⭐",
+        "🎊"
+    ];
+
+
+    for (let i = 0; i < 100; i++) {
 
         const piece =
             document.createElement("div");
@@ -234,8 +280,25 @@ function createConfetti() {
             "confetti";
 
 
+        piece.textContent =
+            pieces[
+                Math.floor(
+                    Math.random() *
+                    pieces.length
+                )
+            ];
+
+
         piece.style.left =
             Math.random() * 100 + "%";
+
+
+        piece.style.top =
+            (-10 - Math.random() * 30) + "%";
+
+
+        piece.style.fontSize =
+            (12 + Math.random() * 20) + "px";
 
 
         piece.style.animationDuration =
@@ -244,20 +307,6 @@ function createConfetti() {
 
         piece.style.animationDelay =
             Math.random() * 2 + "s";
-
-
-        piece.style.background =
-            `hsl(
-                ${Math.random() * 360},
-                90%,
-                65%
-            )`;
-
-
-        piece.style.transform =
-            `rotate(
-                ${Math.random() * 360}deg
-            )`;
 
 
         document.body.appendChild(piece);
@@ -269,4 +318,48 @@ function createConfetti() {
 
         }, 8000);
     }
-      }
+}
+
+
+// ----------------------------------------
+// FINAL HEART EXPLOSION
+// ----------------------------------------
+
+function createFinalHearts() {
+
+    for (let i = 0; i < 30; i++) {
+
+        setTimeout(() => {
+
+            const heart =
+                document.createElement("div");
+
+
+            heart.className =
+                "final-heart";
+
+
+            heart.textContent = "💗";
+
+
+            heart.style.left =
+                (40 + Math.random() * 20) + "%";
+
+
+            heart.style.top =
+                (45 + Math.random() * 10) + "%";
+
+
+            document.body.appendChild(heart);
+
+
+            setTimeout(() => {
+
+                heart.remove();
+
+            }, 3000);
+
+        }, i * 100);
+
+    }
+}
