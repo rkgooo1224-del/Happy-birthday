@@ -4,54 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>A Little Birthday Surprise 🎂</title>
+    <title>A Little Surprise 🎂</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- INTRO SCREEN -->
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- =========================
+         INTRO SCREEN
+    ========================== -->
+
     <section id="intro" class="screen">
 
-        <div class="small-text">
-            ✨ A LITTLE SURPRISE ✨
+        <div class="stars"></div>
+
+        <div class="intro-content">
+
+            <div class="tiny-text">
+                ✨ SOMETHING IS WAITING FOR YOU ✨
+            </div>
+
+            <h1>
+                Hey... 👀
+            </h1>
+
+            <p>
+                I made something special for you.
+            </p>
+
+            <button onclick="startSurprise()">
+                Enter the surprise 💗
+            </button>
+
         </div>
-
-        <h1>
-            Something is waiting...
-        </h1>
-
-        <p class="subtitle">
-            I made a tiny birthday surprise for you 🙃🫶
-        </p>
-
-        <button onclick="startSurprise()">
-            Enter the surprise 💗
-        </button>
 
     </section>
 
 
-    <!-- PHOTO SCREEN -->
-    <section id="photoScreen" class="screen hidden">
 
-        <div class="small-text">
-            📸 MEMORY #1
+    <!-- =========================
+         MAIN EXPERIENCE
+    ========================== -->
+
+    <section id="main" class="screen hidden">
+
+        <div class="background-glow"></div>
+
+        <div class="top-text">
+            ✨ A LITTLE MEMORY ✨
         </div>
 
-        <div id="photoCard" class="photo-card">
 
-            <img
-                src="photo1.jpg"
-                alt="Birthday photo"
-            >
+        <!-- PHOTO 1 -->
 
-            <div class="photo-caption">
-                Okay... maybe one photo first 🙃
+        <div class="photo-container active" id="photo1">
+
+            <div class="photo-card">
+
+                <img
+                    src="photo1.jpg"
+                    alt="Memory 1"
+                >
+
+                <div class="photo-caption">
+                    Okay... maybe one photo first 🙃
+                </div>
+
             </div>
 
         </div>
+
+
+
+        <!-- PHOTO 2 -->
+
+        <div class="photo-container" id="photo2">
+
+            <div class="photo-card">
+
+                <img
+                    src="photo2.jpg"
+                    alt="Memory 2"
+                >
+
+                <div class="photo-caption">
+                    Fine... here's another one 🫶
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PHOTO 3 -->
+
+        <div class="photo-container" id="photo3">
+
+            <div class="photo-card">
+
+                <img
+                    src="photo3.jpg"
+                    alt="Memory 3"
+                >
+
+                <div class="photo-caption">
+                    You really wanted more, didn't you? 😂
+                </div>
+
+            </div>
+
+        </div>
+
 
         <button
             id="nextButton"
@@ -63,33 +134,52 @@
     </section>
 
 
-    <!-- FINAL SCREEN -->
-    <section id="finalScreen" class="screen hidden">
 
-        <div class="small-text">
-            🎂 TODAY IS YOUR DAY 🎂
+    <!-- =========================
+         FINAL BIRTHDAY SCREEN
+    ========================== -->
+
+    <section
+        id="final"
+        class="screen hidden"
+    >
+
+        <div class="final-stars"></div>
+
+        <div class="final-content">
+
+            <div class="tiny-text">
+                🎂 TODAY IS YOUR DAY 🎂
+            </div>
+
+            <h1>
+                HAPPY BIRTHDAY! 💗
+            </h1>
+
+            <p id="finalMessage">
+
+                I hope your day is filled with
+                happiness, laughter, beautiful
+                memories and everything you deserve. 🫶
+
+                <br><br>
+
+                Have the most amazing birthday. ✨
+
+            </p>
+
+            <div class="cake">
+                🎂
+            </div>
+
         </div>
-
-        <h1 class="birthday-title">
-            HAPPY BIRTHDAY! 💗
-        </h1>
-
-        <p id="message" class="message">
-
-            I hope your day is filled with happiness,
-            laughter, beautiful memories and everything
-            you deserve. 🫶
-
-            <br><br>
-
-            Enjoy your special day! 🎂✨
-
-        </p>
 
     </section>
 
 
+
     <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
 
 </body>
