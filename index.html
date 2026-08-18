@@ -1,494 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little Birthday Surprise 🎂</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    <title>A Little Birthday Surprise 🎂</title>
 
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #16051f, #42104f, #7b286f);
-    color: white;
-}
-
-/* Background glow */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(255,120,200,.25), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(180,100,255,.25), transparent 30%);
-    pointer-events: none;
-}
-
-/* Main screen */
-.screen {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 25px;
-    transition: opacity 1s ease, transform 1s ease;
-}
-
-.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(.95);
-}
-
-/* Stars */
-.star {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    opacity: .7;
-    animation: twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle {
-    from { opacity: .2; transform: scale(.7); }
-    to { opacity: 1; transform: scale(1.4); }
-}
-
-/* Hearts */
-.heart {
-    position: fixed;
-    bottom: -30px;
-    font-size: 20px;
-    pointer-events: none;
-    animation: floatHeart linear forwards;
-}
-
-@keyframes floatHeart {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-    }
-    15% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* Intro */
-.small-text {
-    font-size: 15px;
-    letter-spacing: 3px;
-    opacity: .8;
-    margin-bottom: 15px;
-}
-
-h1 {
-    font-size: clamp(38px, 10vw, 75px);
-    margin-bottom: 15px;
-    background: linear-gradient(90deg, #fff, #ffb9e8, #fff);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shine 3s linear infinite;
-}
-
-@keyframes shine {
-    to { background-position: 200%; }
-}
-
-.subtitle {
-    font-size: 18px;
-    opacity: .85;
-    margin-bottom: 35px;
-}
-
-/* Button */
-button {
-    border: none;
-    padding: 15px 35px;
-    border-radius: 50px;
-    background: linear-gradient(135deg, #ff6fcf, #a855f7);
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(255,80,200,.3);
-    transition: .3s;
-}
-
-button:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(255,80,200,.5);
-}
-
-/* Photo card */
-.photo-card {
-    width: min(330px, 80vw);
-    padding: 12px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    transform: rotate(-3deg) scale(.5);
-    opacity: 0;
-    transition: 1.2s cubic-bezier(.2,.8,.2,1);
-}
-
-.photo-card.show {
-    transform: rotate(-3deg) scale(1);
-    opacity: 1;
-}
-
-.photo-card img {
-    width: 100%;
-    display: block;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    border-radius: 3px;
-}
-
-.photo-caption {
-    color: #333;
-    padding: 13px 5px 5px;
-    font-family: cursive;
-    font-size: 18px;
-}
-
-/* Birthday screen */
-.birthday-title {
-    font-size: clamp(40px, 11vw, 85px);
-    margin-bottom: 15px;
-}
-
-.message {
-    max-width: 600px;
-    line-height: 1.7;
-    font-size: 18px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: 1s;
-}
-
-.message.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Confetti */
-.confetti {
-    position: fixed;
-    width: 9px;
-    height: 15px;
-    top: -20px;
-    animation: fall linear forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(720deg);
-    }
-}
-
-/* Mobile */
-@media(max-width:600px) {
-    .subtitle {
-        font-size: 16px;
-    }
-
-    button {
-        padding: 13px 28px;
-    }
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- INTRO -->
-<section id="intro" class="screen">
+    <!-- INTRO SCREEN -->
+    <section id="intro" class="screen">
 
-    <div class="small-text">
-        ✨ A LITTLE SURPRISE ✨
-    </div>
-
-    <h1>Something is waiting...</h1>
-
-    <p class="subtitle">
-        I made a tiny birthday surprise for you 🙃🫶
-    </p>
-
-    <button onclick="startSurprise()">
-        Enter the surprise 💗
-    </button>
-
-</section>
-
-
-<!-- PHOTO -->
-<section id="photoScreen" class="screen hidden">
-
-    <div class="small-text">
-        📸 MEMORY #1
-    </div>
-
-    <div id="photoCard" class="photo-card">
-
-        <!-- CHANGE THIS IMAGE -->
-        <img src="https://picsum.photos/500/650" alt="Birthday photo">
-
-        <div class="photo-caption">
-            Okay... maybe one photo first 🙃
+        <div class="small-text">
+            ✨ A LITTLE SURPRISE ✨
         </div>
 
-    </div>
+        <h1>
+            Something is waiting...
+        </h1>
 
-    <br>
+        <p class="subtitle">
+            I made a tiny birthday surprise for you 🙃🫶
+        </p>
 
-    <button id="nextButton" onclick="nextPhoto()">
-        Another one? 👀
-    </button>
+        <button onclick="startSurprise()">
+            Enter the surprise 💗
+        </button>
 
-</section>
+    </section>
 
 
-<!-- FINAL -->
-<section id="finalScreen" class="screen hidden">
+    <!-- PHOTO SCREEN -->
+    <section id="photoScreen" class="screen hidden">
 
-    <div class="small-text">
-        🎂 TODAY IS YOUR DAY 🎂
-    </div>
+        <div class="small-text">
+            📸 MEMORY #1
+        </div>
 
-    <h1 class="birthday-title">
-        HAPPY BIRTHDAY! 💗
-    </h1>
+        <div id="photoCard" class="photo-card">
 
-    <p id="message" class="message">
-        I hope your day is filled with happiness, laughter,
-        beautiful memories and everything you deserve. 🫶
-        <br><br>
-        Enjoy your special day! 🎂✨
-    </p>
+            <img
+                src="photo1.jpg"
+                alt="Birthday photo"
+            >
 
-</section>
+            <div class="photo-caption">
+                Okay... maybe one photo first 🙃
+            </div>
 
+        </div>
 
-<script>
+        <button
+            id="nextButton"
+            onclick="nextPhoto()"
+        >
+            Another one? 👀
+        </button>
 
-/* =========================
-   CREATE STARS
-========================= */
+    </section>
 
-for (let i = 0; i < 70; i++) {
 
-    const star = document.createElement("div");
+    <!-- FINAL SCREEN -->
+    <section id="finalScreen" class="screen hidden">
 
-    star.className = "star";
+        <div class="small-text">
+            🎂 TODAY IS YOUR DAY 🎂
+        </div>
 
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
+        <h1 class="birthday-title">
+            HAPPY BIRTHDAY! 💗
+        </h1>
 
-    star.style.animationDelay =
-        Math.random() * 3 + "s";
+        <p id="message" class="message">
 
-    document.body.appendChild(star);
-}
+            I hope your day is filled with happiness,
+            laughter, beautiful memories and everything
+            you deserve. 🫶
 
+            <br><br>
 
-/* =========================
-   FLOATING HEARTS
-========================= */
+            Enjoy your special day! 🎂✨
 
-function createHeart() {
+        </p>
 
-    const heart = document.createElement("div");
+    </section>
 
-    heart.className = "heart";
 
-    const hearts = ["💗", "💕", "💖", "💓", "🫶", "✨"];
-
-    heart.innerHTML =
-        hearts[Math.floor(Math.random() * hearts.length)];
-
-    heart.style.left =
-        Math.random() * 100 + "%";
-
-    heart.style.fontSize =
-        (15 + Math.random() * 20) + "px";
-
-    heart.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 10000);
-}
-
-setInterval(createHeart, 700);
-
-
-/* =========================
-   START SURPRISE
-========================= */
-
-function startSurprise() {
-
-    document.getElementById("intro")
-        .classList.add("hidden");
-
-    setTimeout(() => {
-
-        document.getElementById("photoScreen")
-            .classList.remove("hidden");
-
-        setTimeout(() => {
-
-            document.getElementById("photoCard")
-                .classList.add("show");
-
-        }, 400);
-
-    }, 800);
-}
-
-
-/* =========================
-   PHOTOS
-========================= */
-
-const photos = [
-
-    {
-        src: "photo1.jpg",
-        caption: "Okay... maybe one photo first 🙃"
-    },
-
-    {
-        src: "photo2.jpg",
-        caption: "Fine... here's another one 🫶"
-    },
-
-    {
-        src: "photo2.jpg",
-        caption: "You really wanted more, didn't you? 😂"
-    }
-
-];
-
-let currentPhoto = 0;
-
-
-function nextPhoto() {
-
-    currentPhoto++;
-
-    if (currentPhoto >= photos.length) {
-
-        showFinal();
-
-        return;
-    }
-
-    const card =
-        document.getElementById("photoCard");
-
-    card.classList.remove("show");
-
-    setTimeout(() => {
-
-        card.querySelector("img").src =
-            photos[currentPhoto].src;
-
-        card.querySelector(".photo-caption")
-            .textContent =
-            photos[currentPhoto].caption;
-
-        card.classList.add("show");
-
-    }, 500);
-}
-
-
-/* =========================
-   FINAL SCREEN
-========================= */
-
-function showFinal() {
-
-    document.getElementById("photoScreen")
-        .classList.add("hidden");
-
-    setTimeout(() => {
-
-        document.getElementById("finalScreen")
-            .classList.remove("hidden");
-
-        setTimeout(() => {
-
-            document.getElementById("message")
-                .classList.add("show");
-
-            createConfetti();
-
-        }, 700);
-
-    }, 900);
-}
-
-
-/* =========================
-   CONFETTI
-========================= */
-
-function createConfetti() {
-
-    for (let i = 0; i < 100; i++) {
-
-        const piece =
-            document.createElement("div");
-
-        piece.className = "confetti";
-
-        piece.style.left =
-            Math.random() * 100 + "%";
-
-        piece.style.animationDuration =
-            (3 + Math.random() * 4) + "s";
-
-        piece.style.animationDelay =
-            Math.random() * 2 + "s";
-
-        piece.style.background =
-            `hsl(${Math.random() * 360}, 90%, 65%)`;
-
-        piece.style.transform =
-            `rotate(${Math.random() * 360}deg)`;
-
-        document.body.appendChild(piece);
-
-        setTimeout(() => {
-            piece.remove();
-        }, 8000);
-    }
-}
-
-</script>
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 
 </body>
-  </html>
+</html>
