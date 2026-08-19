@@ -1,152 +1,164 @@
-/* =========================================
-   BACKGROUND MUSIC
-========================================= */
+/* =====================================================
+   A LITTLE BIRTHDAY ADVENTURE
+   ===================================================== */
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
 
 const bgMusic = document.getElementById("bgMusic");
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const intro = document.getElementById("intro");
-const main = document.getElementById("main");
-const finalScreen = document.getElementById("final");
-
-const photo1 = document.getElementById("photo1");
-const photo2 = document.getElementById("photo2");
-const photo3 = document.getElementById("photo3");
-
-const nextButton = document.getElementById("nextButton");
-
-
-/* =========================================
-   PHOTO SYSTEM
-========================================= */
-
-let currentPhoto = 1;
-
-
-/* =========================================
-   START SURPRISE
-========================================= */
-
-function startSurprise() {
-
-    // Start music after user interaction
+function startMusic() {
     bgMusic.volume = 0.35;
 
     bgMusic.play().catch(() => {
-        console.log("Music could not autoplay.");
+        console.log("Music needs a user interaction.");
+    });
+}
+
+
+/* =====================================================
+   MISSIONS
+===================================================== */
+
+const mission1 = document.getElementById("mission1");
+const mission2 = document.getElementById("mission2");
+const mission3 = document.getElementById("mission3");
+const mission4 = document.getElementById("mission4");
+const finalGift = document.getElementById("finalGift");
+const birthday = document.getElementById("birthday");
+
+
+function showMission(mission) {
+
+    document.querySelectorAll(".mission").forEach(section => {
+        section.classList.remove("active");
     });
 
-    // Hide intro
-    intro.classList.add("hidden");
-
-    // Show main experience
-    setTimeout(() => {
-        main.classList.remove("hidden");
-    }, 700);
+    mission.classList.add("active");
 }
 
 
-/* =========================================
-   NEXT PHOTO
-========================================= */
+/* =====================================================
+   MISSION 01
+   STAR SKY
+===================================================== */
 
-function nextPhoto() {
-
-    if (currentPhoto === 1) {
-
-        photo1.classList.remove("active");
-
-        photo2.classList.add("active");
-
-        currentPhoto = 2;
-
-        nextButton.innerHTML = "One more? 👀";
-
-    }
-
-    else if (currentPhoto === 2) {
-
-        photo2.classList.remove("active");
-
-        photo3.classList.add("active");
-
-        currentPhoto = 3;
-
-        nextButton.innerHTML = "Okay... one last thing 💗";
-
-    }
-
-    else if (currentPhoto === 3) {
-
-        photo3.classList.remove("active");
-
-        nextButton.style.display = "none";
-
-        // Hide main screen
-        main.classList.add("hidden");
-
-        // Show final screen
-        setTimeout(() => {
-
-            finalScreen.classList.remove("hidden");
-
-        }, 800);
-
-    }
-}
+const stars = document.getElementById("stars");
+const moon = document.getElementById("moon");
+const skyMessage = document.getElementById("skyMessage");
+const hiddenHeart = document.getElementById("hiddenHeart");
+const heartCaption = document.getElementById("heartCaption");
 
 
-/* =========================================
-   STAR GENERATOR
-========================================= */
+/* Create stars */
 
-function createStars(container, amount) {
+function createStars(amount) {
 
     for (let i = 0; i < amount; i++) {
 
         const star = document.createElement("div");
 
-        star.classList.add("star");
+        star.className = "star";
 
         star.style.left =
             Math.random() * 100 + "%";
 
         star.style.top =
-            Math.random() * 100 + "%";
-
-        star.style.animationDuration =
-            (1 + Math.random() * 3) + "s";
+            Math.random() * 75 + "%";
 
         star.style.animationDelay =
-            Math.random() * 3 + "s";
+            Math.random() * 4 + "s";
 
-        container.appendChild(star);
+        star.style.animationDuration =
+            (2 + Math.random() * 4) + "s";
+
+        stars.appendChild(star);
     }
 }
 
 
-/* =========================================
-   INTRO STARS
-========================================= */
+/* Start the sky */
 
-const stars = document.querySelector(".stars");
+function startSky() {
 
-if (stars) {
-    createStars(stars, 80);
+    createStars(70);
+
+    setTimeout(() => {
+
+        skyMessage.classList.add("show");
+
+    }, 1000);
+
+
+    setTimeout(() => {
+
+        moon.classList.add("show");
+
+    }, 3500);
+
+
+    setTimeout(() => {
+
+        hiddenHeart.classList.add("show");
+        heartCaption.classList.add("show");
+
+    }, 5000);
 }
 
 
-/* =========================================
-   FINAL STARS
-========================================= */
+/* Find the love */
 
-const finalStars =
-    document.querySelector(".final-stars");
+function findLove() {
 
-if (finalStars) {
-    createStars(finalStars, 100);
+    startMusic();
+
+    hiddenHeart.classList.add("found");
+
+    heartCaption.innerHTML =
+        "❤️<br><span>Love found.</span>";
+
+    setTimeout(() => {
+
+        showMission(mission2);
+
+    }, 1300);
 }
+
+
+/* Start sky automatically */
+
+startSky();
+
+
+/* =====================================================
+   MISSION 02
+   FLOWER
+===================================================== */
+
+const seed = document.getElementById("seed");
+const flower = document.getElementById("flower");
+
+const waterButton =
+    document.getElementById("waterButton");
+
+const flowerNext =
+    document.getElementById("flowerNext");
+
+const waterMessage =
+    document.getElementById("waterMessage");
+
+
+let waterCount = 0;
+
+
+/* Water the flower */
+
+function waterFlower() {
+
+    startMusic();
+
+    waterCount++;
+
+    waterButton.classList.add("water
