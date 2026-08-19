@@ -7,144 +7,1159 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     overflow: hidden;
 }
 
 body {
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     color: white;
-    background: #090615;
+
+    background: #05030b;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 
-/* =========================================
-   SCREEN
-========================================= */
+/* =====================================================
+   WATERMARK
+===================================================== */
 
-.screen {
+.watermark {
     position: fixed;
+
+    right: 12px;
+    bottom: 10px;
+
+    z-index: 9999;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.25);
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* =====================================================
+   MISSIONS
+===================================================== */
+
+.mission {
+
+    position: fixed;
+
     inset: 0;
 
     width: 100%;
-    height: 100%;
     height: 100dvh;
 
-    display: flex;
+    display: none;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
 
-    padding: 20px;
+    padding:
+        20px;
 
     overflow: hidden;
 
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
-}
-
-.hidden {
     opacity: 0;
-    pointer-events: none;
-    transform: scale(1.05);
 }
 
+.mission.active {
 
-/* =========================================
-   INTRO
-========================================= */
+    display: flex;
 
-#intro {
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(185, 74, 180, 0.25),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
-            #0b0615,
-            #24103d,
-            #12071e
-        );
+    animation:
+        missionAppear
+        1s
+        ease
+        forwards;
 }
 
-.intro-content {
-    position: relative;
-    z-index: 10;
+@keyframes missionAppear {
 
-    width: 100%;
-    max-width: 700px;
-
-    animation: introAppear 1.5s ease forwards;
-}
-
-@keyframes introAppear {
     from {
         opacity: 0;
-        transform: translateY(35px) scale(.95);
+        transform: scale(1.04);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
     }
 }
 
 
-/* =========================================
-   SMALL TEXT
-========================================= */
+/* =====================================================
+   MISSION 01
+   NIGHT SKY
+===================================================== */
 
-.tiny-text {
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+#mission1 {
 
-    color: #ffd4f2;
-
-    margin-bottom: 22px;
-
-    opacity: .8;
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #17134b 0%,
+            #090719 40%,
+            #020107 100%
+        );
 }
 
 
-/* =========================================
-   HEADINGS
-========================================= */
+/* =====================================================
+   STARS
+===================================================== */
 
-h1 {
-    font-size: clamp(42px, 11vw, 90px);
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.star {
+
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 7px
+        rgba(255,255,255,.9);
+
+    opacity: 0;
+
+    animation:
+        starAppear
+        2s
+        ease
+        forwards,
+        starTwinkle
+        3s
+        ease-in-out
+        infinite
+        alternate;
+
+    pointer-events: none;
+}
+
+@keyframes starAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: .8;
+        transform: scale(1);
+    }
+}
+
+@keyframes starTwinkle {
+
+    from {
+        opacity: .35;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =====================================================
+   MOON
+===================================================== */
+
+.moon {
+
+    position: absolute;
+
+    top: 16%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        scale(.4);
+
+    font-size:
+        clamp(
+            60px,
+            18vw,
+            110px
+        );
+
+    opacity: 0;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(255,240,180,.8)
+        );
+
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
+}
+
+.moon.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        scale(1);
+
+}
+
+
+/* =====================================================
+   SKY MESSAGE
+===================================================== */
+
+.mission-message {
+
+    position: absolute;
+
+    top: 48%;
+
+    width: 90%;
+
+    font-size:
+        clamp(
+            20px,
+            6vw,
+            32px
+        );
+
+    color:
+        rgba(255,255,255,.9);
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+
+    text-shadow:
+        0 0 20px
+        rgba(255,255,255,.25);
+}
+
+.mission-message.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================================
+   HIDDEN HEART
+===================================================== */
+
+.hidden-heart {
+
+    position: absolute;
+
+    top: 31%;
+
+    left: 72%;
+
+    width: 58px;
+    height: 58px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 38px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform:
+        scale(.5);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    animation:
+        heartBlink
+        1.4s
+        ease-in-out
+        infinite;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,70,130,.9)
+        );
+
+    z-index: 20;
+}
+
+.hidden-heart.show {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+}
+
+.hidden-heart.found {
+
+    animation:
+        heartFound
+        1s
+        ease
+        forwards;
+}
+
+@keyframes heartBlink {
+
+    0%,
+    100% {
+        opacity: .25;
+        transform: scale(.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+@keyframes heartFound {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   HEART CAPTION
+===================================================== */
+
+.mission-caption {
+
+    position: absolute;
+
+    bottom: 12%;
+
+    width: 100%;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    color:
+        rgba(255,255,255,.65);
+
+    opacity: 0;
+
+    transition:
+        opacity 1s ease;
+}
+
+.mission-caption.show {
+
+    opacity: 1;
+}
+
+.mission-caption em {
+
+    color: #ff9ecb;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   MISSION TITLES
+===================================================== */
+
+.mission-title {
+
+    position: absolute;
+
+    top: 7%;
+
+    width: 90%;
+
+    z-index: 10;
+}
+
+.mission-title span {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color:
+        rgba(255,180,225,.7);
+}
+
+.mission-title h2 {
+
+    margin-top: 12px;
+
+    font-size:
+        clamp(
+            20px,
+            6vw,
+            32px
+        );
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   MISSION 02
+   FLOWER
+===================================================== */
+
+#mission2 {
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(80,130,80,.2),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #07100b,
+            #020705
+        );
+}
+
+.flower-area {
+
+    position: relative;
+
+    width: 220px;
+
+    height: 260px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+}
+
+.seed {
+
+    font-size: 75px;
+
+    transition:
+        transform .7s ease;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(100,255,150,.25)
+        );
+}
+
+.seed.grown {
+
+    transform:
+        scale(1.25)
+        translateY(-15px);
+}
+
+.flower {
+
+    position: absolute;
+
+    bottom: 40px;
+
+    font-size: 110px;
+
+    opacity: 0;
+
+    transform:
+        scale(.1)
+        translateY(50px);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s cubic-bezier(.17,.67,.3,1.3);
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(255,120,210,.7)
+        );
+}
+
+.flower.bloom {
+
+    opacity: 1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+    animation:
+        flowerFloat
+        3s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes flowerFloat {
+
+    from {
+        transform:
+            scale(1)
+            translateY(0);
+    }
+
+    to {
+        transform:
+            scale(1.08)
+            translateY(-8px);
+    }
+}
+
+
+/* =====================================================
+   ADVENTURE TEXT
+===================================================== */
+
+.adventure-text {
+
+    margin-top: 15px;
+
+    max-width: 90%;
+
+    font-size: 16px;
+
+    color:
+        rgba(255,255,255,.75);
+}
+
+
+/* =====================================================
+   ADVENTURE BUTTON
+===================================================== */
+
+.adventure-button {
+
+    margin-top: 22px;
+
+    padding:
+        13px 28px;
+
+    border: 1px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 100px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5fbc,
+            #8b5cf6
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,70,180,.25);
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.adventure-button:active {
+
+    transform:
+        scale(.92);
+}
+
+.adventure-button:hover {
+
+    box-shadow:
+        0 12px 45px
+        rgba(255,70,180,.45);
+}
+
+.adventure-button.hidden {
+
+    display: none;
+}
+
+
+/* =====================================================
+   WATER BUTTON
+===================================================== */
+
+#waterButton.watered {
+
+    animation:
+        waterShake
+        .3s
+        ease;
+}
+
+@keyframes waterShake {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(-2deg);
+    }
+}
+
+
+/* =====================================================
+   MISSION 03
+   PHOTOS
+===================================================== */
+
+#mission3 {
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,80,190,.12),
+            transparent 40%
+        ),
+        #080510;
+}
+
+
+/* =====================================================
+   PHOTO STAGE
+===================================================== */
+
+.photo-stage {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width:
+        calc(100% - 30px);
+
+    max-width: 420px;
+
+    transform:
+        translate(-50%, -48%)
+        scale(.95);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+}
+
+.photo-stage.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+
+/* =====================================================
+   PHOTO CARD
+===================================================== */
+
+.photo-card {
+
+    width: 100%;
+
+    padding: 9px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+
+    backdrop-filter:
+        blur(10px);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   IMAGE WRAPPER
+===================================================== */
+
+.image-wrapper {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        rgba(0,0,0,.25);
+}
+
+
+/* =====================================================
+   MOBILE-FRIENDLY IMAGE
+===================================================== */
+
+.memory-photo {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    height: auto;
+
+    max-height: 52vh;
+
+    object-fit: contain;
+
+    border-radius: 14px;
+}
+
+
+/* =====================================================
+   PHOTO CAPTION
+===================================================== */
+
+.photo-caption {
+
+    padding:
+        12px 5px 3px;
+
+    font-size: 16px;
+
+    color:
+        rgba(255,255,255,.9);
+
+    min-height: 35px;
+}
+
+
+/* =====================================================
+   PHOTO NEXT BUTTON
+===================================================== */
+
+#photoNext {
+
+    position: absolute;
+
+    bottom: 8%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    z-index: 30;
+}
+
+#photoNext:active {
+
+    transform:
+        translateX(-50%)
+        scale(.92);
+}
+
+
+/* =====================================================
+   MISSION 04
+   CAKE
+===================================================== */
+
+#mission4 {
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,100,180,.16),
+            transparent 40%
+        ),
+        #080510;
+}
+
+.cake {
+
+    position: relative;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 20px;
+
+    cursor: pointer;
+
+    font-size: 100px;
+
+    margin-top: 25px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255,130,210,.3)
+        );
+
+    transition:
+        transform .3s ease;
+}
+
+.cake:active {
+
+    transform:
+        scale(.9);
+}
+
+.cake-body {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =====================================================
+   CANDLES
+===================================================== */
+
+.candle {
+
+    position: absolute;
+
+    top: -5px;
+
+    font-size: 27px;
+
+    opacity: .35;
+
+    filter:
+        grayscale(1);
+
+    transition:
+        opacity .5s ease,
+        filter .5s ease,
+        transform .5s ease;
+}
+
+.candle1 {
+    left: 32px;
+}
+
+.candle2 {
+    left: 68px;
+}
+
+.candle3 {
+    left: 104px;
+}
+
+.candle.lit {
+
+    opacity: 1;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,200,80,.9)
+        );
+
+    transform:
+        translateY(-8px)
+        scale(1.15);
+}
+
+
+/* =====================================================
+   FINAL GIFT
+===================================================== */
+
+#finalGift {
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,70,170,.2),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            #11071c,
+            #05020a
+        );
+}
+
+.gift {
+
+    margin-top: 35px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size:
+        clamp(
+            90px,
+            25vw,
+            150px
+        );
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(255,90,190,.4)
+        );
+
+    transition:
+        transform .4s ease;
+}
+
+.gift:active {
+
+    transform:
+        scale(.9);
+}
+
+.gift.open {
+
+    animation:
+        giftOpen
+        1.4s
+        ease
+        forwards;
+}
+
+@keyframes giftOpen {
+
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform:
+            scale(1.3)
+            rotate(-8deg);
+    }
+
+    70% {
+        transform:
+            scale(1.5)
+            rotate(8deg);
+    }
+
+    100% {
+        transform:
+            scale(0);
+            opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   BIRTHDAY SCREEN
+===================================================== */
+
+#birthday {
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(255,90,190,.25),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            #12051e,
+            #05020a
+        );
+}
+
+.birthday-content {
+
+    width: 100%;
+
+    max-width: 600px;
+
+    padding: 20px;
+
+    animation:
+        birthdayAppear
+        1.5s
+        ease
+        forwards;
+}
+
+@keyframes birthdayAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.95);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.birthday-small {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color:
+        #ffd2ee;
+
+    margin-bottom: 18px;
+}
+
+.birthday-content h1 {
+
+    font-size:
+        clamp(
+            38px,
+            11vw,
+            75px
+        );
 
     line-height: 1;
-
-    margin-bottom: 25px;
 
     background:
         linear-gradient(
             90deg,
-            #ffffff,
-            #ffb8e6,
-            #ffffff,
-            #d9b3ff,
-            #ffffff
+            #fff,
+            #ff9edb,
+            #d5b0ff,
+            #fff
         );
 
-    background-size: 300%;
+    background-size: 250%;
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
 
-    animation: textShine 5s linear infinite;
+    animation:
+        birthdayShine
+        4s
+        linear
+        infinite;
 }
 
-@keyframes textShine {
+@keyframes birthdayShine {
 
     0% {
         background-position: 0%;
@@ -159,19 +1174,156 @@ h1 {
     }
 }
 
-.intro-content p {
-    font-size: 19px;
-    color: rgba(255,255,255,.75);
-    margin-bottom: 38px;
+
+/* =====================================================
+   PERSONAL MESSAGE
+===================================================== */
+
+.personal-message {
+
+    margin-top: 28px;
+
+    padding:
+        20px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,.3);
+}
+
+.personal-message p {
+
+    margin-bottom: 12px;
+}
+
+.signature {
+
+    margin-top: 18px;
+
+    font-size: 18px;
+
+    color:
+        #ffb4df;
+
+    font-weight: 600;
 }
 
 
-/* =========================================
-   BUTTON
-========================================= */
+/* =====================================================
+   FINAL CAKE
+===================================================== */
 
-button {
-    border: none;
-    outline: none;
+.final-cake {
 
-    cursor: pointer;
+    margin-top: 25px;
+
+    font-size: 65px;
+
+    animation:
+        finalCakeFloat
+        2.5s
+        ease-in-out
+        infinite
+        alternate;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255,120,200,.4)
+        );
+}
+
+@keyframes finalCakeFloat {
+
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(-10px);
+    }
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .mission {
+
+        padding:
+            12px;
+    }
+
+    .hidden-heart {
+
+        left: 70%;
+
+        font-size: 32px;
+    }
+
+    .mission-title {
+
+        top: 5%;
+    }
+
+    .photo-stage {
+
+        width:
+            calc(100% - 18px);
+
+        max-width:
+            350px;
+    }
+
+    .photo-card {
+
+        padding: 7px;
+
+        border-radius: 16px;
+    }
+
+    .memory-photo {
+
+        max-height: 48vh;
+    }
+
+    .photo-caption {
+
+        font-size: 14px;
+
+        padding-top: 9px;
+    }
+
+    #photoNext {
+
+        bottom: 5%;
+    }
+
+    .personal-message {
+
+        padding: 15px;
+
+        font-size: 14px;
+    }
+}
